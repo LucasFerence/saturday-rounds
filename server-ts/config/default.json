@@ -1,0 +1,12 @@
+{
+    "root": {
+
+        "db": {
+            "host": "mongo",
+            "port": 27017,
+            "db": "teetimes",
+            "username": "root",
+            "password": "password"
+        }
+    }
+}
