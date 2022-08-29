@@ -1,14 +1,12 @@
-# example: https://medium.com/mozilla-club-bbsr/dockerizing-a-mern-stack-web-application-ebf78babf136
-
 version: '3.7'
 
 services:
-  server-ts:
+  server:
     build:
-      context: ./server-ts
+      context: ./server
       dockerfile: Dockerfile
-    image: tee-times-web-server-ts
-    container_name: tee-times-web-server-ts
+    image: saturday-rounds-server
+    container_name: saturday-rounds-server
     restart: always
     command: node build/src/index.js
     volumes:
@@ -22,36 +20,12 @@ services:
     build:
       context: ./client
       dockerfile: Dockerfile
-    image: tee-time-web-client
-    container_name: tee-times-web-client
+    image: saturday-rounds-client
+    container_name: saturday-rounds-client
     command: npm start
     volumes:
       - ./client/:/usr/src/app
       - /usr/src/app/node_modules
     ports:
       - "3000:3000"
-  mongo:
-    image: mongo:latest
-    container_name: mongo
-    restart: always
-    ports:
-      - "27017:27017"
-    volumes:
-      - /data/db
-  chrome-driver:
-    image: selenium/node-chrome:4.3.0-20220726
-    shm_size: 2gb
-    depends_on:
-      - selenium-hub
-    environment:
-      - SE_EVENT_BUS_HOST=selenium-hub
-      - SE_EVENT_BUS_PUBLISH_PORT=4442
-      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
-  selenium-hub:
-    image: selenium/hub:4.3.0-20220726
-    container_name: selenium-hub
-    ports:
-      - "4442:4442"
-      - "4443:4443"
-      - "4444:4444"
     

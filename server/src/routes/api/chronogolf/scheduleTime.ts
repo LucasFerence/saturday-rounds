@@ -30,13 +30,6 @@ export default async function scheduleTime(server: FastifyInstance) {
     async (request, reply) => {
       const scheduleDetails: ScheduleDetails = request.body;
 
-      const user = await server.getChronogolfUser(scheduleDetails.userId);
-      if (user === null) {
-        reply.status(400);
-        reply.send({message: 'Invalid user!'});
-        return;
-      }
-
       const club = await server.getChronogolfClub(scheduleDetails.clubId);
       if (club === null) {
         reply.status(400);
