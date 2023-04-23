@@ -3,13 +3,14 @@
 version: '3.7'
 
 services:
-  server-ts:
+  server:
     build:
       context: ./server
       dockerfile: Dockerfile
     image: saturday-rounds-server
     container_name: saturday-rounds-server
     restart: always
+    command: node build/src/index.js
     volumes:
       - ./server/:/usr/src/app
       - /usr/src/app/node_modules

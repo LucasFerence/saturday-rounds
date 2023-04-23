@@ -17,9 +17,7 @@ RUN ls -a
 RUN npm install
 RUN npm run compile
 
-COPY . .
-
 EXPOSE 5050
 
 ENV NODE_PATH=./build
-CMD [ "node", "./build/src/index.js" ]
+CMD [ "node", "build/src/index.js" ]

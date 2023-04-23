@@ -4,7 +4,7 @@
         "db": {
             "host": "mongo",
             "port": 27017,
-            "db": "teetimes",
+            "db": "saturday-rounds",
             "username": "root",
             "password": "password"
         }
