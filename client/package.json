@@ -25,7 +25,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "proxy": "http://tee-times-web-server-ts:5050",
+  "proxy": "http://saturday-rounds-server:5050",
   "eslintConfig": {
     "extends": [
       "react-app",
