@@ -5,10 +5,10 @@ version: '3.7'
 services:
   server-ts:
     build:
-      context: ./server-ts
+      context: ./server
       dockerfile: Dockerfile
-    image: tee-times-web-server-ts
-    container_name: tee-times-web-server-ts
+    image: saturday-rounds-server
+    container_name: saturday-rounds-server
     restart: always
     command: node build/src/index.js
     volumes:
@@ -22,8 +22,8 @@ services:
     build:
       context: ./client
       dockerfile: Dockerfile
-    image: tee-time-web-client
-    container_name: tee-times-web-client
+    image: saturday-rounds-client
+    container_name: saturday-rounds-client
     command: npm start
     volumes:
       - ./client/:/usr/src/app
