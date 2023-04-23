@@ -1,52 +1,54 @@
-import { React, useState, useEffect } from 'react';
-import { useAuth0 } from '@auth0/auth0-react';
+import {React, useState, useEffect} from 'react';
+import {useAuth0} from '@auth0/auth0-react';
 import axios from 'axios';
 
-import { Button } from '@mantine/core';
+import {Button} from '@mantine/core';
 import ClubCourses from './ClubCourses';
 
+/**
+ * Render all of the supported clubs
+ * @param {*} props
+ * @return {div}
+ */
 function Clubs(props) {
+  const [clubs, setClubs] = useState([]);
 
-    const [clubs, setClubs] = useState([]);
+  const {getAccessTokenSilently} = useAuth0();
 
-    const { getAccessTokenSilently } = useAuth0();
+  useEffect(() => {
+    const fetchData = async () => {
+      const token = await getAccessTokenSilently();
 
-    useEffect(() => {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
 
-        const fetchData = async () => {
-            const token = await getAccessTokenSilently();
+      axios.get('clubs', config)
+          .then((res) => {
+            setClubs(res.data);
+          });
+    };
 
-            const config = {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            }
+    fetchData();
+  }, [getAccessTokenSilently]);
 
-            axios.get('clubs', config)
-                .then(res => {
-                    setClubs(res.data)
-                })
-        }
+  const [currClub, setCurrClub] = useState();
 
-        fetchData()
+  return (
+    <div>
+      {
+        clubs.map((club) =>
+          <Button key={club.id} onClick={() => setCurrClub(club.id)}>
+            {club.name}
+          </Button>,
+        )
+      }
 
-    }, [getAccessTokenSilently]);
-
-    const [currClub, setCurrClub] = useState();
-
-    return (
-        <div>
-            {
-                clubs.map(club =>
-                    <Button key={club.id} onClick={() => setCurrClub(club.id)}>
-                        {club.name}
-                    </Button>
-                )
-            }
-            
-            {currClub != null && <ClubCourses clubId={currClub}/>}
-        </div>
-    )
+      {currClub != null && <ClubCourses clubId={currClub}/>}
+    </div>
+  );
 }
 
-export default Clubs
+export default Clubs;
