@@ -1,4 +1,4 @@
-import {React} from 'react';
+import {React, useState} from 'react';
 import PropTypes from 'prop-types';
 import {ThemeIcon, UnstyledButton, Group, Text} from '@mantine/core';
 import {Golf, Settings2} from 'tabler-icons-react';
@@ -7,6 +7,7 @@ AreaLink.propTypes = {
   icon: PropTypes.element,
   color: PropTypes.string,
   label: PropTypes.string,
+  selected: PropTypes.bool,
   render: PropTypes.func,
   renderCallback: PropTypes.func,
 };
@@ -18,7 +19,8 @@ AreaLink.propTypes = {
  */
 function AreaLink(props) {
   return (
-    <UnstyledButton onClick={() => props.renderCallback(props.render)}
+    <UnstyledButton
+      onClick={() => props.renderCallback(props.render)}
       sx={(theme) => ({
         'display': 'block',
         'width': '100%',
@@ -27,13 +29,15 @@ function AreaLink(props) {
         'color': theme.colorScheme === 'dark' ?
           theme.colors.dark[0] :
           theme.black,
-
         '&:hover': {
           backgroundColor:
             theme.colorScheme === 'dark' ?
               theme.colors.dark[6] :
-              theme.colors.gray[0],
+              theme.colors.gray[2],
         },
+        'backgroundColor': props.selected != false ?
+          theme.colors.gray[2] :
+          theme.colors.white,
       })}
     >
       <Group>
@@ -41,11 +45,7 @@ function AreaLink(props) {
           {props.icon}
         </ThemeIcon>
 
-        <Text
-          styles={(theme) => ({
-            size: theme.fontSizes.xs,
-          })}
-        >
+        <Text size='xl'>
           {props.label}
         </Text>
       </Group>
@@ -78,10 +78,20 @@ AreaLinks.propTypes = {
  * @return {div}
  */
 export function AreaLinks(props) {
-  const links = data.map((link) =>
-    <AreaLink
+  const [selectedKey, setSelectedKey] = useState([]);
+  const links = data.map((link) => {
+    // Define the key for the link
+    const linkKey = link.label;
+
+    return <AreaLink
       {...link}
-      key={link.label}
-      renderCallback={props.renderCallback}/>);
+      key={linkKey}
+      selected={selectedKey === linkKey}
+      renderCallback={(render) => {
+        setSelectedKey(linkKey);
+        props.renderCallback(render);
+      }}
+    />;
+  });
   return <div>{links}</div>;
 };
