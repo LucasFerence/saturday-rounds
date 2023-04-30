@@ -2,6 +2,7 @@ import {React, useState} from 'react';
 import PropTypes from 'prop-types';
 import {ThemeIcon, UnstyledButton, Group, Text} from '@mantine/core';
 import {Golf, Settings2} from 'tabler-icons-react';
+import ScheduleArea from './ScheduleArea';
 
 AreaLink.propTypes = {
   icon: PropTypes.element,
@@ -57,7 +58,7 @@ const data = [
   {
     icon: <Golf size="3rem"/>, color: 'green', label: 'Schedule',
     render: () => {
-      return <div>Schedule Area</div>;
+      return <ScheduleArea />;
     },
   },
   {
