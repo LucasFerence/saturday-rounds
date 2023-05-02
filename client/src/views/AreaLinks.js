@@ -1,4 +1,4 @@
-import {React, useState} from 'react';
+import {React, useState, useContext} from 'react';
 import PropTypes from 'prop-types';
 import {
   ThemeIcon,
@@ -9,6 +9,7 @@ import {
 } from '@mantine/core';
 import {Golf, Settings2} from 'tabler-icons-react';
 import ScheduleArea from './ScheduleArea';
+import {DashboardContext} from './Dashboard';
 
 const useStyles = createStyles((theme) => ({
 
@@ -88,6 +89,8 @@ AreaLinks.propTypes = {
  */
 export function AreaLinks(props) {
   const [selectedKey, setSelectedKey] = useState([]);
+  const {setRenderedArea} = useContext(DashboardContext);
+
   const links = data.map((link) => {
     // Define the key for the link
     const linkKey = link.label;
@@ -98,7 +101,7 @@ export function AreaLinks(props) {
       selected={selectedKey === linkKey}
       renderCallback={(render) => {
         setSelectedKey(linkKey);
-        props.renderCallback(render);
+        setRenderedArea(render);
       }}
     />;
   });

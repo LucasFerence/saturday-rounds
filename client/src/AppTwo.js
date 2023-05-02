@@ -1,6 +1,6 @@
 import React from 'react';
 import {MantineProvider} from '@mantine/core';
-import Dashboard from './views/Dashboard';
+import {Dashboard} from './views/Dashboard';
 
 /**
  * Initialization for version two app
