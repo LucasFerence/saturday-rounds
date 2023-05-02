@@ -1,8 +1,26 @@
 import {React, useState} from 'react';
 import PropTypes from 'prop-types';
-import {ThemeIcon, UnstyledButton, Group, Text} from '@mantine/core';
+import {
+  ThemeIcon,
+  UnstyledButton,
+  Group,
+  Text,
+  createStyles,
+} from '@mantine/core';
 import {Golf, Settings2} from 'tabler-icons-react';
 import ScheduleArea from './ScheduleArea';
+
+const useStyles = createStyles((theme) => ({
+
+  areaButton: {
+    'display': 'block',
+    'width': '100%',
+    'padding': theme.spacing.xs,
+    '&:hover': {
+      backgroundColor: theme.colors.brand[2],
+    },
+  },
+}));
 
 AreaLink.propTypes = {
   icon: PropTypes.element,
@@ -19,25 +37,15 @@ AreaLink.propTypes = {
  * @return {UnstyledButton}
  */
 function AreaLink(props) {
+  const {classes} = useStyles();
+
   return (
     <UnstyledButton
       onClick={() => props.renderCallback(props.render)}
+      className={classes.areaButton}
       sx={(theme) => ({
-        'display': 'block',
-        'width': '100%',
-        'padding': theme.spacing.xs,
-        'borderRadius': theme.radius.sm,
-        'color': theme.colorScheme === 'dark' ?
-          theme.colors.dark[0] :
-          theme.black,
-        '&:hover': {
-          backgroundColor:
-            theme.colorScheme === 'dark' ?
-              theme.colors.dark[6] :
-              theme.colors.gray[2],
-        },
-        'backgroundColor': props.selected != false ?
-          theme.colors.gray[2] :
+        backgroundColor: props.selected != false ?
+          theme.colors.brand[2] :
           theme.colors.white,
       })}
     >

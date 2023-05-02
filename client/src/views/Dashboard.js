@@ -1,10 +1,36 @@
+import {React, useState} from 'react';
 import {
   AppShell,
   Navbar,
   Header,
-  Group} from '@mantine/core';
-import {React, useState} from 'react';
+  Group,
+  createStyles,
+} from '@mantine/core';
 import {AreaLinks} from './AreaLinks';
+
+const useStyles = createStyles((theme) => ({
+
+  shell: {
+    padding: 'md',
+    backgroundColor: theme.colors.white,
+  },
+
+  nav: {
+    height: '100vh',
+    p: 'xs',
+    backgroundColor: theme.colors.white,
+  },
+
+  headerContent: {
+    height: '100%',
+    px: 20,
+    backgroundColor: theme.colors.white,
+  },
+
+  areaSection: {
+    mt: 'xs',
+  },
+}));
 
 /**
  * Render the dashboard in an AppShell
@@ -18,35 +44,27 @@ import {AreaLinks} from './AreaLinks';
  * @return {AppShell}
  */
 function Dashboard(props) {
+  const {classes} = useStyles();
+
   const [renderedArea, setRenderedArea] = useState([]);
+
   return (
     <AppShell
-      padding="md"
+      className={classes.shell}
       fixed={false}
       navbar={
-        <Navbar width={{base: 300}} height='100vh' p="xs">
-          <Navbar.Section grow mt="xs">
+        <Navbar className={classes.nav} width={{base: 300}}>
+          <Navbar.Section className={classes.areaSection} grow>
             <AreaLinks renderCallback={(val) => setRenderedArea(val)}/>
-          </Navbar.Section>
-          <Navbar.Section>
           </Navbar.Section>
         </Navbar>
       }
       header={
         <Header height={60}>
-          <Group sx={{height: '100%'}} px={20} position="apart">
+          <Group className={classes.headerContent} position="apart">
           </Group>
         </Header>
       }
-      styles={(theme) => ({
-        main: {
-          backgroundColor:
-            theme.colorScheme === 'dark' ?
-              theme.colors.dark[8] :
-              theme.colors.gray[0],
-          height: '100vh',
-        },
-      })}
     >
       {renderedArea.length === undefined ? renderedArea : 'Welcome!'}
     </AppShell>

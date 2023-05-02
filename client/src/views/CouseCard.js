@@ -12,23 +12,38 @@ import {
 import {Bookmark} from 'tabler-icons-react';
 
 const useStyles = createStyles((theme) => ({
+
   card: {
-    backgroundColor: theme.colorScheme === 'dark' ?
-      theme.colors.dark[7] :
-      theme.white,
+    backgroundColor: theme.colors.white,
+    border: `0.15rem solid ${theme.colors.gray[3]}`,
   },
 
   section: {
-    borderBottom: `1rem solid ${
-      theme.colorScheme === 'dark' ? theme.colors.dark[4] : theme.colors.gray[3]
-    }`,
+    borderBottom: `0.15rem solid ${theme.colors.gray[3]}`,
     paddingLeft: theme.spacing.md,
     paddingRight: theme.spacing.md,
     paddingBottom: theme.spacing.md,
   },
 
+  label: {
+    textTransform: 'uppercase',
+  },
+
+  scheduleButton: {
+    'backgroundColor': theme.colors.brand[3],
+    'flex': 1,
+    '&:hover': {
+      backgroundColor: theme.colors.brand[2],
+    },
+  },
+
+  bookmarkIcon: {
+    backgroundColor: theme.colors.white,
+  },
+
   bookmark: {
-    fill: theme.colors.green[8],
+    stroke: theme.colors.brand[3],
+    strokeWidth: 1.25,
   },
 
 }));
@@ -47,23 +62,28 @@ function CourseCard(props) {
   const {classes} = useStyles();
 
   return (
-    <Card withBorder radius="md" p="md">
+    <Card withBorder className={classes.card} radius="md" p="md">
 
       <Card.Section>
         <Image src={props.image} alt={props.name} height={180} />
       </Card.Section>
 
       <Card.Section className={classes.section} mt="md">
-        <Text fz="lg" fw={500}>
+        <Text className={classes.label} fz="lg" fw={500}>
           {props.name}
         </Text>
       </Card.Section>
 
       <Group mt="xs">
-        <Button radius="md" style={{flex: 1}}>
+        <Button className={classes.scheduleButton} radius="md">
           Schedule Tee Time
         </Button>
-        <ActionIcon variant="default" radius="md" size={36}>
+        <ActionIcon
+          className={classes.bookmarkIcon}
+          variant="default"
+          radius="md"
+          size={36}
+        >
           <Bookmark size="2rem" className={classes.bookmark} stroke={1.5} />
         </ActionIcon>
       </Group>
