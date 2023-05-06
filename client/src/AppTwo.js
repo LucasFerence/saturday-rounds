@@ -15,9 +15,13 @@ class App extends React.Component {
       <MantineProvider
         theme = {{
           colors: {
+            brandGrey: ['#483838'],
+            brandDarkGreen: ['#42855B'],
+            brandLightGreen: ['#90B77D'],
+            brandLight: ['#D2D79F'],
             brand: ['#FFF8D6', '#F7E1AE', '#A4D0A4', '#617A55'],
           },
-          primaryColor: 'brand',
+          primaryColor: 'brandLightGreen',
           fontSizes: {
             xs: '0.6rem',
             sm: '0.75rem',

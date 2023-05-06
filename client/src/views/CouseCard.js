@@ -1,4 +1,4 @@
-import {React} from 'react';
+import {React, useContext} from 'react';
 import PropTypes from 'prop-types';
 import {
   ActionIcon,
@@ -10,6 +10,8 @@ import {
   createStyles,
 } from '@mantine/core';
 import {Bookmark} from 'tabler-icons-react';
+import {DashboardContext} from './Dashboard';
+import ScheduleCourse from './ScheduleCoursePage';
 
 const useStyles = createStyles((theme) => ({
 
@@ -49,6 +51,7 @@ const useStyles = createStyles((theme) => ({
 }));
 
 CourseCard.propTypes = {
+  courseId: PropTypes.string,
   name: PropTypes.string,
   image: PropTypes.string,
 };
@@ -60,6 +63,7 @@ CourseCard.propTypes = {
  */
 function CourseCard(props) {
   const {classes} = useStyles();
+  const {setRenderedArea} = useContext(DashboardContext);
 
   return (
     <Card withBorder className={classes.card} radius="md" p="md">
@@ -75,7 +79,15 @@ function CourseCard(props) {
       </Card.Section>
 
       <Group mt="xs">
-        <Button className={classes.scheduleButton} radius="md">
+        <Button
+          onClick={
+            () => setRenderedArea(
+                <ScheduleCourse courseId={props.courseId}/>,
+            )
+          }
+          className={classes.scheduleButton}
+          radius="md"
+        >
           Schedule Tee Time
         </Button>
         <ActionIcon
