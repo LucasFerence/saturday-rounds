@@ -11,7 +11,7 @@ import {
 } from '@mantine/core';
 import {Bookmark} from 'tabler-icons-react';
 import {DashboardContext} from './Dashboard';
-import ScheduleCourse from './ScheduleCoursePage';
+import ScheduleCoursePage from './ScheduleCoursePage';
 
 const useStyles = createStyles((theme) => ({
 
@@ -82,7 +82,7 @@ function CourseCard(props) {
         <Button
           onClick={
             () => setRenderedArea(
-                <ScheduleCourse courseId={props.courseId}/>,
+                <ScheduleCoursePage courseId={props.courseId}/>,
             )
           }
           className={classes.scheduleButton}

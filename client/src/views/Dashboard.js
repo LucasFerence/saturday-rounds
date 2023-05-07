@@ -1,4 +1,9 @@
-import {createContext, React, useState, useContext} from 'react';
+import {
+  React,
+  createContext,
+  useState,
+  useContext,
+} from 'react';
 import PropTypes from 'prop-types';
 import {
   AppShell,
@@ -7,6 +12,7 @@ import {
   Group,
   createStyles,
 } from '@mantine/core';
+import usePrevious from '../hooks/usePrevious';
 import {AreaLinks} from './AreaLinks';
 
 const useStyles = createStyles((theme) => ({
@@ -99,9 +105,12 @@ DashboardContextProvider.propTypes = {
  */
 export function DashboardContextProvider(props) {
   const [renderedArea, setRenderedArea] = useState([]);
+  const previousArea = usePrevious(renderedArea);
 
   return (
-    <DashboardContext.Provider value={{renderedArea, setRenderedArea}}>
+    <DashboardContext.Provider value={
+      {renderedArea, setRenderedArea, previousArea}
+    }>
       {props.children}
     </DashboardContext.Provider>
   );

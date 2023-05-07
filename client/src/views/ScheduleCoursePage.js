@@ -1,23 +1,31 @@
-import {React, useState} from 'react';
+import {React, useContext} from 'react';
 import PropTypes from 'prop-types';
 import {
   Button,
   Container,
   Flex,
+  Group,
   Select,
   Title,
   Text,
   createStyles,
+  CloseButton,
 } from '@mantine/core';
 import {useForm} from '@mantine/form';
 import {DatePickerInput, TimeInput} from '@mantine/dates';
 import {CalendarEvent, ClockEdit, ListNumbers} from 'tabler-icons-react';
+import {DashboardContext} from './Dashboard';
 
 const useStyles = createStyles((theme) => ({
 
+  pageContainer: {
+    marginLeft: '0rem',
+    maginTop: '0rem',
+  },
+
   formContainer: {
-    marginLeft: '4rem',
-    marginTop: '4rem',
+    marginLeft: '1rem',
+    marginTop: '3rem',
   },
 
   formField: {
@@ -39,8 +47,28 @@ ScheduleCoursePage.propTypes = {
  * @return {div}
  */
 function ScheduleCoursePage(props) {
+  const {classes} = useStyles();
+  const {setRenderedArea, previousArea} = useContext(DashboardContext);
+
   return (
-    <ScheduleForm />
+    <Container className={classes.pageContainer}>
+
+      <Group>
+        <CloseButton
+          size="xl"
+          onClick={() => setRenderedArea(previousArea)}
+        />
+
+        <Title>Course: {props.courseId}</Title>
+      </Group>
+
+      <Container className={classes.formContainer}>
+        <Flex>
+          <ScheduleForm />
+        </Flex>
+      </Container>
+
+    </Container>
   );
 }
 
@@ -73,86 +101,95 @@ function ScheduleForm(props) {
   });
 
   const today = new Date();
-  const [selectedDate, setSelectedDate] = useState();
-  console.log(selectedDate);
 
   return (
-    <Container className={classes.formContainer}>
-      <Flex>
-        <form>
+    <form>
 
-          <Select
-            className={classes.formField}
-            icon={<ListNumbers color='black'/>}
-            label={<Title order={2}>Number of Players</Title>}
-            size='lg'
-            data={['1', '2', '3', '4']}
-            required
-            {...form.getInputProps('numPlayers')}
-          />
+      <Select
+        className={classes.formField}
+        icon={<ListNumbers color='black'/>}
+        label={<Title order={2}>Number of Players</Title>}
+        size='lg'
+        data={['1', '2', '3', '4']}
+        required
+        withAsterisk={false}
+        styles={(theme) => ({
+          item: {
+            '&[data-selected]': {
+              backgroundColor: theme.colors.brandLightGreen,
+            },
+            ...theme.fn.hover(
+                {
+                  backgroundColor: theme.colors.brandLightGreen,
+                },
+            ),
+          },
+        })}
+        {...form.getInputProps('numPlayers')}
+      />
 
-          <DatePickerInput
-            className={classes.formField}
-            icon={<CalendarEvent color='black'/>}
-            placeholder="Pick Date"
-            label={<Title order={2}>Tee Time Date</Title>}
-            description={<Text fz="md">Date to schedule tee time</Text>}
-            required
-            minDate={today}
-            size='lg'
-            allowDeselect
-            onDateChange={(date) => setSelectedDate(date.toString())}
-            getDayProps={(date) => {
-              return {
-                sx: (theme) => ({
-                  '&[data-selected]': {
+      <DatePickerInput
+        className={classes.formField}
+        icon={<CalendarEvent color='black'/>}
+        placeholder="Pick Date"
+        label={<Title order={2}>Tee Time Date</Title>}
+        description={<Text fz="md">Date to schedule tee time</Text>}
+        required
+        minDate={today}
+        size='lg'
+        allowDeselect
+        withAsterisk={false}
+        getDayProps={(date) => {
+          return {
+            sx: (theme) => ({
+              '&[data-selected]': {
+                backgroundColor: theme.colors.brandLightGreen,
+              },
+              ...theme.fn.hover(
+                  {
                     backgroundColor: theme.colors.brandLightGreen,
                   },
-                  ...theme.fn.hover(
-                      {
-                        backgroundColor: theme.colors.brandLightGreen,
-                      },
-                  ),
-                }),
-              };
-            }}
-            {...form.getInputProps('teeTimeDate')}
-          />
+              ),
+            }),
+          };
+        }}
+        {...form.getInputProps('teeTimeDate')}
+      />
 
-          <TimeInput
-            className={classes.formField}
-            icon={<ClockEdit color='black'/>}
-            label={<Title order={2}>Earliest Time</Title>}
-            description={
-              <Text fz="md">
-                Earliest time in which a tee time can be booked
-              </Text>
-            }
-            format="12"
-            size='lg'
-            required
-            {...form.getInputProps('minTime')}
-          />
+      <TimeInput
+        className={classes.formField}
+        icon={<ClockEdit color='black'/>}
+        label={<Title order={2}>Earliest Time</Title>}
+        description={
+          <Text fz="md">
+            Earliest time in which a tee time can be booked
+          </Text>
+        }
+        format="12"
+        size='lg'
+        required
+        withAsterisk={false}
+        {...form.getInputProps('minTime')}
+      />
 
-          <TimeInput
-            className={classes.formField}
-            icon={<ClockEdit color='black'/>}
-            label={<Title order={2}>Latest Time</Title>}
-            description={
-              <Text fz="md">
-                Latest time in which a tee time can be booked
-              </Text>
-            }
-            format="12"
-            size='lg'
-            required
-            {...form.getInputProps('maxTime')}
-          />
+      <TimeInput
+        className={classes.formField}
+        icon={<ClockEdit color='black'/>}
+        label={<Title order={2}>Latest Time</Title>}
+        description={
+          <Text fz="md">
+            Latest time in which a tee time can be booked
+          </Text>
+        }
+        format="12"
+        size='lg'
+        required
+        withAsterisk={false}
+        {...form.getInputProps('maxTime')}
+      />
 
-          <Button type="submit">Submit</Button>
-        </form>
-      </Flex>
-    </Container>
+      <Button type="submit">Submit</Button>
+    </form>
   );
 }
 
