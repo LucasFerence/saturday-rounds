@@ -18,8 +18,10 @@ const useStyles = createStyles((theme) => ({
     'width': '100%',
     'padding': theme.spacing.xs,
     '&:hover': {
-      backgroundColor: theme.colors.brandGreenTwo[7],
+      backgroundColor: theme.colors.brandGreenOne[7],
+      color: theme.colors.brandEarth[0],
     },
+    'fontWeight': 500,
   },
 }));
 
@@ -46,8 +48,11 @@ function AreaLink(props) {
       className={classes.areaButton}
       sx={(theme) => ({
         backgroundColor: props.selected != false ?
-          theme.colors.brandGreenTwo[7] :
-          theme.colors.white,
+          theme.colors.brandGreenOne[7] :
+          theme.colors.brandEarth[0],
+        color: props.selected ?
+          theme.colors.brandEarth[0] :
+          theme.black,
       })}
     >
       <Group>

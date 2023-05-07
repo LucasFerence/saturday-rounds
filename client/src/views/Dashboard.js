@@ -30,7 +30,7 @@ const useStyles = createStyles((theme) => ({
   headerContent: {
     height: '100%',
     px: 20,
-    backgroundColor: theme.colors.brandGreenOne[7],
+    backgroundColor: theme.colors.brandGrey[7],
     borderBottom: 0,
   },
 
@@ -81,7 +81,7 @@ function DashboardAppShell() {
         </Navbar>
       }
       header={
-        <Header height={60}>
+        <Header height={70}>
           <Group className={classes.headerContent} position="apart">
           </Group>
         </Header>

@@ -6,7 +6,7 @@ import {
   Button,
   Image,
   Group,
-  Text,
+  Title,
   createStyles,
 } from '@mantine/core';
 import {Bookmark} from 'tabler-icons-react';
@@ -32,10 +32,11 @@ const useStyles = createStyles((theme) => ({
   },
 
   scheduleButton: {
-    'backgroundColor': theme.colors.brandGreenOne[7],
+    'backgroundColor': theme.colors.brandGreenTwo[7],
     'flex': 1,
+    'textTransform': 'uppercase',
     '&:hover': {
-      backgroundColor: theme.colors.brandGreenOne[5],
+      backgroundColor: theme.colors.brandGreenOne[7],
     },
   },
 
@@ -73,9 +74,9 @@ function CourseCard(props) {
       </Card.Section>
 
       <Card.Section className={classes.section} mt="md">
-        <Text className={classes.label} fz="lg" fw={500}>
+        <Title className={classes.label} fz="xl" fw={500}>
           {props.name}
-        </Text>
+        </Title>
       </Card.Section>
 
       <Group mt="xs">
@@ -88,7 +89,7 @@ function CourseCard(props) {
           className={classes.scheduleButton}
           radius="md"
         >
-          Schedule Tee Time
+          Schedule
         </Button>
         <ActionIcon
           className={classes.bookmarkIcon}

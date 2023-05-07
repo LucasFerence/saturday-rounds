@@ -4,6 +4,7 @@ import {Dashboard} from './views/Dashboard';
 
 /**
  * Initialization for version two app
+ * Color theme: https://colorhunt.co/palette/48383842855b90b77dd2d79f
  */
 class App extends React.Component {
   /**
@@ -32,12 +33,16 @@ class App extends React.Component {
               '#E3E6C3', '#DDE1B7', '#D8DCAB', '#D2D79F',
             ],
           },
+          fontFamily: 'Montserrat, sans-serif',
           fontSizes: {
             xs: '0.6rem',
             sm: '0.75rem',
             md: '0.9rem',
             lg: '1rem',
             xl: '1.2rem',
+          },
+          other: {
+            fontCursive: 'Courgette',
           },
         }}
       >

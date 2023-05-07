@@ -55,7 +55,13 @@ function ScheduleCoursePage(props) {
           onClick={() => setRenderedArea(previousArea)}
         />
 
-        <Title>Course: {props.courseId}</Title>
+        <Title
+          sx={(theme) => ({
+            fontFamily: theme.other.fontCursive,
+          })}
+        >
+          Course: {props.courseId}
+        </Title>
       </Group>
 
       <Container className={classes.formContainer}>
@@ -184,7 +190,22 @@ function ScheduleForm(props) {
         {...form.getInputProps('maxTime')}
       />
 
-      <Button type="submit">Submit</Button>
+      <Button
+        type="submit"
+        fullWidth
+        uppercase
+        size='md'
+        sx={(theme) => ({
+          backgroundColor: theme.colors.brandGreenTwo[7],
+          ...theme.fn.hover(
+              {
+                backgroundColor: theme.colors.brandGreenOne[7],
+              },
+          ),
+        })}
+      >
+        Submit
+      </Button>
     </form>
   );
 }
