@@ -19,19 +19,19 @@ const useStyles = createStyles((theme) => ({
 
   shell: {
     padding: 'md',
-    backgroundColor: theme.colors.white,
+    backgroundColor: theme.colors.brandEarth[0],
   },
 
   nav: {
     height: '100vh',
-    p: 'xs',
-    backgroundColor: theme.colors.white,
+    backgroundColor: theme.colors.brandEarth[0],
   },
 
   headerContent: {
     height: '100%',
     px: 20,
-    backgroundColor: theme.colors.white,
+    backgroundColor: theme.colors.brandGreenOne[7],
+    borderBottom: 0,
   },
 
   areaSection: {

@@ -18,7 +18,7 @@ const useStyles = createStyles((theme) => ({
     'width': '100%',
     'padding': theme.spacing.xs,
     '&:hover': {
-      backgroundColor: theme.colors.brand[2],
+      backgroundColor: theme.colors.brandGreenTwo[7],
     },
   },
 }));
@@ -46,7 +46,7 @@ function AreaLink(props) {
       className={classes.areaButton}
       sx={(theme) => ({
         backgroundColor: props.selected != false ?
-          theme.colors.brand[2] :
+          theme.colors.brandGreenTwo[7] :
           theme.colors.white,
       })}
     >

@@ -31,10 +31,6 @@ const useStyles = createStyles((theme) => ({
   formField: {
     marginBottom: '2rem',
   },
-
-  fieldIcon: {
-    color: theme.colors.white,
-  },
 }));
 
 ScheduleCoursePage.propTypes = {
@@ -116,11 +112,11 @@ function ScheduleForm(props) {
         styles={(theme) => ({
           item: {
             '&[data-selected]': {
-              backgroundColor: theme.colors.brandLightGreen,
+              backgroundColor: theme.colors.brandGreenTwo[7],
             },
             ...theme.fn.hover(
                 {
-                  backgroundColor: theme.colors.brandLightGreen,
+                  backgroundColor: theme.colors.brandGreenTwo[7],
                 },
             ),
           },
@@ -143,11 +139,11 @@ function ScheduleForm(props) {
           return {
             sx: (theme) => ({
               '&[data-selected]': {
-                backgroundColor: theme.colors.brandLightGreen,
+                backgroundColor: theme.colors.brandGreenTwo[7],
               },
               ...theme.fn.hover(
                   {
-                    backgroundColor: theme.colors.brandLightGreen,
+                    backgroundColor: theme.colors.brandGreenTwo[7],
                   },
               ),
             }),

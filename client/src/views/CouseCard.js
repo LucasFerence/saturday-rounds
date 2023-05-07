@@ -17,11 +17,11 @@ const useStyles = createStyles((theme) => ({
 
   card: {
     backgroundColor: theme.colors.white,
-    border: `0.15rem solid ${theme.colors.gray[3]}`,
+    border: `0.15rem solid ${theme.colors.brandGrey[3]}`,
   },
 
   section: {
-    borderBottom: `0.15rem solid ${theme.colors.gray[3]}`,
+    borderBottom: `0.15rem solid ${theme.colors.brandGrey[3]}`,
     paddingLeft: theme.spacing.md,
     paddingRight: theme.spacing.md,
     paddingBottom: theme.spacing.md,
@@ -32,10 +32,10 @@ const useStyles = createStyles((theme) => ({
   },
 
   scheduleButton: {
-    'backgroundColor': theme.colors.brand[3],
+    'backgroundColor': theme.colors.brandGreenOne[7],
     'flex': 1,
     '&:hover': {
-      backgroundColor: theme.colors.brand[2],
+      backgroundColor: theme.colors.brandGreenOne[5],
     },
   },
 
@@ -44,7 +44,7 @@ const useStyles = createStyles((theme) => ({
   },
 
   bookmark: {
-    stroke: theme.colors.brand[3],
+    stroke: theme.colors.brandGreenOne[7],
     strokeWidth: 1.25,
   },
 
