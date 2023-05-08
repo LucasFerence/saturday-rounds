@@ -8,8 +8,8 @@ import {
   createStyles,
 } from '@mantine/core';
 import {Golf, Settings2} from 'tabler-icons-react';
-import ScheduleArea from './ScheduleArea';
-import {DashboardContext} from './Dashboard';
+import ScheduleArea from '../schedule/ScheduleArea';
+import {DashboardContext} from '../Dashboard';
 
 const useStyles = createStyles((theme) => ({
 

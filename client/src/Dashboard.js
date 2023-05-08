@@ -12,8 +12,8 @@ import {
   Group,
   createStyles,
 } from '@mantine/core';
-import usePrevious from '../hooks/usePrevious';
-import {AreaLinks} from './AreaLinks';
+import usePrevious from './hooks/usePrevious';
+import {AreaLinks} from './area/AreaLinks';
 
 const useStyles = createStyles((theme) => ({
 

@@ -14,7 +14,7 @@ import {
 import {useForm} from '@mantine/form';
 import {DatePickerInput, TimeInput} from '@mantine/dates';
 import {CalendarEvent, ClockEdit, ListNumbers} from 'tabler-icons-react';
-import {DashboardContext} from './Dashboard';
+import {DashboardContext} from '../Dashboard';
 
 const useStyles = createStyles((theme) => ({
 

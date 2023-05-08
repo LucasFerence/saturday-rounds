@@ -10,7 +10,7 @@ import {
   createStyles,
 } from '@mantine/core';
 import {Bookmark} from 'tabler-icons-react';
-import {DashboardContext} from './Dashboard';
+import {DashboardContext} from '../Dashboard';
 import ScheduleCoursePage from './ScheduleCoursePage';
 
 const useStyles = createStyles((theme) => ({
