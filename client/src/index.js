@@ -1,22 +1,34 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
+import AppTwo from './AppTwo';
 import reportWebVitals from './reportWebVitals';
 import {Auth0Provider} from '@auth0/auth0-react';
+import {BrowserRouter, Routes, Route} from 'react-router-dom';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>
 
-      <Auth0Provider
-        domain="dev-fkh-ll2p.us.auth0.com"
-        clientId="aDmrCoY20lxhQOi7GDkq5pRLrfJU2mf9"
-        redirectUri={window.location.origin}
-        audience="http://localhost:5050"
-      >
+      <BrowserRouter>
 
-        <App />
-      </Auth0Provider>
+        <Routes>
+          <Route path="/" element={
+            <Auth0Provider
+              domain="dev-fkh-ll2p.us.auth0.com"
+              clientId="aDmrCoY20lxhQOi7GDkq5pRLrfJU2mf9"
+              redirectUri={window.location.origin}
+              audience="http://localhost:5050"
+            >
+
+              <App />
+            </Auth0Provider>
+          } />
+
+          <Route path="/v2" element={<AppTwo />}/>
+        </Routes>
+
+      </BrowserRouter>
 
     </React.StrictMode>,
 );
