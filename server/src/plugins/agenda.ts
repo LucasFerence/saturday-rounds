@@ -2,9 +2,9 @@ import {FastifyInstance, FastifyPluginAsync} from 'fastify';
 import fp from 'fastify-plugin';
 import {Agenda, Job} from 'agenda';
 
-export class JobDefinition {
+export interface JobDefinition {
   // Do nothing by default
-  execute(fastify: FastifyInstance, job: Job, done: () => void): void {}
+  execute(fastify: FastifyInstance, job: Job, done: () => void): void;
 }
 
 declare module 'fastify' {
