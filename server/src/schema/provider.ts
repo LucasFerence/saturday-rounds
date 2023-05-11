@@ -1,16 +1,16 @@
 import {Static, Type} from '@sinclair/typebox';
-import {WithId, Document} from 'node_modules/mongodb';
-
+import {Schema, DataDocument, SafeType} from './schema';
 /*
 Provider: Technical provider for golf content. Potential examples: ChronoGolf, GolfNow
 */
 
-export const ProviderType = Type.Object({
-  id: Type.String(),
+export const ProviderType = SafeType({
   name: Type.String(),
 });
 
 type Type = Static<typeof ProviderType>;
-export interface Provider extends Type, WithId<Document> {}
+export interface Provider extends Type, DataDocument {}
 
-export const PROVIDER_COLLECTION = 'providers';
+export class ProviderSchema implements Schema<Provider> {
+  collection = 'providers';
+}

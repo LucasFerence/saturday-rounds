@@ -1,5 +1,5 @@
 import {Static, Type} from '@sinclair/typebox';
-import {WithId, Document} from 'node_modules/mongodb';
+import {Schema, DataDocument, SafeType} from './schema';
 import {ProviderType} from './provider';
 import {SourceType} from './source';
 
@@ -7,15 +7,19 @@ import {SourceType} from './source';
 Course: Standardized golf course
 */
 
-export const CourseType = Type.Object({
-  id: Type.String(),
+// Create a safe type for Course
+export const CourseType = SafeType({
   name: Type.String(),
-  image: Type.String(),
-  source: SourceType,
-  provider: ProviderType,
+  image: Type.Optional(Type.String()),
+  source: Type.Optional(SourceType),
+  provider: Type.Optional(ProviderType),
 });
 
+// Create the Course DataDocument type based on the SafeType
 type Type = Static<typeof CourseType>;
-export interface Course extends Type, WithId<Document> {}
+export interface Course extends Type, DataDocument {}
 
-export const COURSE_COLLECTION = 'courses';
+// Create a Schema for the Course type to allow DB association
+export class CourseSchema implements Schema<Course> {
+  collection = 'courses';
+}

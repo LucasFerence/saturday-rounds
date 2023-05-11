@@ -1,5 +1,5 @@
 import {Static, Type} from '@sinclair/typebox';
-import {WithId, Document} from 'node_modules/mongodb';
+import {Schema, DataDocument, SafeType} from './schema';
 import {ProviderType} from './provider';
 
 /*
@@ -8,13 +8,14 @@ Many courses can be associated with a source.
 This is a more generic term of the ChronoGolf club.
 */
 
-export const SourceType = Type.Object({
-  id: Type.String(),
+export const SourceType = SafeType({
   name: Type.String(),
   provider: ProviderType,
 });
 
 type Type = Static<typeof SourceType>;
-export interface Source extends Type, WithId<Document> {}
+export interface Source extends Type, DataDocument {}
 
-export const SOURCE_COLLECTION = 'sources';
+export class SourceSchema implements Schema<Source> {
+  collection = 'sources';
+}
