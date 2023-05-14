@@ -69,13 +69,13 @@ class DatabaseAccess<T extends DataDocument, S extends Schema<T>> {
     return (await collection?.findOne(query)) as unknown as T;
   }
 
-  async write(fastify: FastifyInstance, item: T) {
+  async write(fastify: FastifyInstance, item: T, create: boolean) {
     const collection = getCollection(fastify, this.schema.collection);
 
     // Use a UUID to generate a unique item
     const itemId = item._id !== undefined ? item._id : uuid();
     const filter = {_id: itemId};
-    const options = {upsert: true};
+    const options = {upsert: create};
 
     await collection?.replaceOne(filter, item, options);
   }

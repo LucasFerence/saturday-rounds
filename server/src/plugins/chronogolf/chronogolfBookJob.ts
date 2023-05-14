@@ -11,7 +11,6 @@ export class ChronogolfBookJob implements JobDefinition {
   execute(fastify: FastifyInstance, job: Job, done: () => void): void {
     console.log(`Starting service for task ${job.attrs.name}`);
 
-    // TODO: Move bookChronoGolfTime into this class and remove ChronogolfBook.ts all together
     const scheduleDetails = job.attrs.data?.details as ScheduleDetails;
     fastify.bookChronogolfTime(scheduleDetails);
 
