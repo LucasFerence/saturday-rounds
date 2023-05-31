@@ -1,5 +1,6 @@
 import {Static, Type} from '@sinclair/typebox';
 import {Schema, DataDocument, SafeType} from './schema';
+
 /*
 Provider: Technical provider for golf content. Potential examples: ChronoGolf, GolfNow
 */

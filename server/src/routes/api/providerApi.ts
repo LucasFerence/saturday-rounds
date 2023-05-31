@@ -1,52 +1,52 @@
 import {FastifyInstance} from 'fastify';
-import {Course, CourseSchema, CourseType} from 'src/schema/course';
+import {Provider, ProviderSchema, ProviderType} from 'src/schema/provider';
 
-const PREFIX = '/course';
+const PREFIX = '/provider';
 
-export default async function courseApi(fastify: FastifyInstance) {
+export default async function providerApi(fastify: FastifyInstance) {
   /**
-   * Get a course given a :courseId
-   * Example: http/localhost:5050/course/{courseId}
+   * Get a provider given a :providerId
+   * Example: http/localhost:5050/provider/{providerId}
    */
   interface GetParams {
-    courseId: string;
+    providerId: string;
   }
 
   fastify.get<{Params: GetParams}>(
-    `${PREFIX}/:courseId`,
+    `${PREFIX}/:providerId`,
     {
       schema: {
         response: {
-          200: CourseType,
+          200: ProviderType,
         },
       },
       preValidation: (req, reply) =>
-        fastify.authorize(req, reply, ['read:courses']),
+        fastify.authorize(req, reply, ['read:providers']),
     },
     async (request, reply) => {
-      const {courseId} = request.params;
+      const {providerId} = request.params;
 
-      const course = await fastify
-        .databaseAccess(new CourseSchema())
-        .get(fastify, courseId);
+      const provider = await fastify
+        .databaseAccess(new ProviderSchema())
+        .get(fastify, providerId);
 
       reply.status(200);
-      reply.send(course);
+      reply.send(provider);
     }
   );
 
   /**
-   * Update a course in database with Body CourseType
+   * Update a provider in database with Body ProviderType
    * Important: ensure that the body that is sent has an _id value
    */
-  fastify.post<{Body: Course}>(
+  fastify.post<{Body: Provider}>(
     `${PREFIX}/update`,
     {
       schema: {
-        body: CourseType,
+        body: ProviderType,
       },
       preValidation: (req, reply) =>
-        fastify.authorize(req, reply, ['write:courses']),
+        fastify.authorize(req, reply, ['write:providers']),
     },
     async (req, reply) => {
       const _id = req.body._id;
@@ -59,7 +59,7 @@ export default async function courseApi(fastify: FastifyInstance) {
       }
 
       await fastify
-        .databaseAccess(new CourseSchema())
+        .databaseAccess(new ProviderSchema())
         .write(fastify, req.body, false);
 
       reply.status(200);
@@ -67,17 +67,17 @@ export default async function courseApi(fastify: FastifyInstance) {
   );
 
   /**
-   * Create a course in database with Body CourseType
+   * Create a provider in database with Body ProviderType
    * Important: ensure that the body that is sent has an _id value
    */
-  fastify.post<{Body: Course}>(
+  fastify.post<{Body: Provider}>(
     `${PREFIX}/create`,
     {
       schema: {
-        body: CourseType,
+        body: ProviderType,
       },
       preValidation: (req, reply) =>
-        fastify.authorize(req, reply, ['write:courses']),
+        fastify.authorize(req, reply, ['write:providers']),
     },
     async (req, reply) => {
       const _id = req.body._id;
@@ -90,7 +90,7 @@ export default async function courseApi(fastify: FastifyInstance) {
       }
 
       await fastify
-        .databaseAccess(new CourseSchema())
+        .databaseAccess(new ProviderSchema())
         .write(fastify, req.body, true);
 
       reply.status(200);

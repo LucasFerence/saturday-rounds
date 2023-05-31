@@ -1,7 +1,5 @@
 import {Static, Type} from '@sinclair/typebox';
 import {Schema, DataDocument, SafeType} from './schema';
-import {ProviderType} from './provider';
-import {SourceType} from './source';
 
 /*
 Course: Standardized golf course
@@ -9,10 +7,11 @@ Course: Standardized golf course
 
 // Create a safe type for Course
 export const CourseType = SafeType({
+  externalId: Type.String(),
+  sourceId: Type.String(),
+  providerId: Type.String(),
   name: Type.String(),
   image: Type.Optional(Type.String()),
-  source: Type.Optional(SourceType),
-  provider: Type.Optional(ProviderType),
 });
 
 // Create the Course DataDocument type based on the SafeType

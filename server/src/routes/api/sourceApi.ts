@@ -1,52 +1,52 @@
 import {FastifyInstance} from 'fastify';
-import {Course, CourseSchema, CourseType} from 'src/schema/course';
+import {Source, SourceSchema, SourceType} from 'src/schema/source';
 
-const PREFIX = '/course';
+const PREFIX = '/source';
 
-export default async function courseApi(fastify: FastifyInstance) {
+export default async function sourceApi(fastify: FastifyInstance) {
   /**
-   * Get a course given a :courseId
-   * Example: http/localhost:5050/course/{courseId}
+   * Get a source given a :sourceId
+   * Example: http/localhost:5050/source/{sourceId}
    */
   interface GetParams {
-    courseId: string;
+    sourceId: string;
   }
 
   fastify.get<{Params: GetParams}>(
-    `${PREFIX}/:courseId`,
+    `${PREFIX}/:sourceId`,
     {
       schema: {
         response: {
-          200: CourseType,
+          200: SourceType,
         },
       },
       preValidation: (req, reply) =>
-        fastify.authorize(req, reply, ['read:courses']),
+        fastify.authorize(req, reply, ['read:sources']),
     },
     async (request, reply) => {
-      const {courseId} = request.params;
+      const {sourceId} = request.params;
 
-      const course = await fastify
-        .databaseAccess(new CourseSchema())
-        .get(fastify, courseId);
+      const source = await fastify
+        .databaseAccess(new SourceSchema())
+        .get(fastify, sourceId);
 
       reply.status(200);
-      reply.send(course);
+      reply.send(source);
     }
   );
 
   /**
-   * Update a course in database with Body CourseType
+   * Update a source in database with Body SourceType
    * Important: ensure that the body that is sent has an _id value
    */
-  fastify.post<{Body: Course}>(
+  fastify.post<{Body: Source}>(
     `${PREFIX}/update`,
     {
       schema: {
-        body: CourseType,
+        body: SourceType,
       },
       preValidation: (req, reply) =>
-        fastify.authorize(req, reply, ['write:courses']),
+        fastify.authorize(req, reply, ['write:sources']),
     },
     async (req, reply) => {
       const _id = req.body._id;
@@ -59,7 +59,7 @@ export default async function courseApi(fastify: FastifyInstance) {
       }
 
       await fastify
-        .databaseAccess(new CourseSchema())
+        .databaseAccess(new SourceSchema())
         .write(fastify, req.body, false);
 
       reply.status(200);
@@ -67,17 +67,17 @@ export default async function courseApi(fastify: FastifyInstance) {
   );
 
   /**
-   * Create a course in database with Body CourseType
+   * Create a source in database with Body SourceType
    * Important: ensure that the body that is sent has an _id value
    */
-  fastify.post<{Body: Course}>(
+  fastify.post<{Body: Source}>(
     `${PREFIX}/create`,
     {
       schema: {
-        body: CourseType,
+        body: SourceType,
       },
       preValidation: (req, reply) =>
-        fastify.authorize(req, reply, ['write:courses']),
+        fastify.authorize(req, reply, ['write:sources']),
     },
     async (req, reply) => {
       const _id = req.body._id;
@@ -90,7 +90,7 @@ export default async function courseApi(fastify: FastifyInstance) {
       }
 
       await fastify
-        .databaseAccess(new CourseSchema())
+        .databaseAccess(new SourceSchema())
         .write(fastify, req.body, true);
 
       reply.status(200);
