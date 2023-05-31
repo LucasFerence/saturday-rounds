@@ -3,10 +3,10 @@ import {MantineProvider} from '@mantine/core';
 import {Dashboard} from './Dashboard';
 
 
-/** "KYle was here and git finally worked" */
+/** "Kyle was here and git finally worked" */
 
 /**
- * Initialization for version two app please working
+ * Initialization for version two app please fucking work
  * Color theme: https://colorhunt.co/palette/48383842855b90b77dd2d79f
  */
 class App extends React.Component {
