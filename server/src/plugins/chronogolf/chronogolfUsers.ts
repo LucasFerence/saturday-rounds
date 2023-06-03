@@ -8,7 +8,9 @@ declare module 'fastify' {
     upsertChronogolfUser: (user: User) => void;
   }
 }
-
+/*
+Test comment
+*/
 const chronogolfUsers: FastifyPluginAsync = async (
   fastify: FastifyInstance
 ) => {
