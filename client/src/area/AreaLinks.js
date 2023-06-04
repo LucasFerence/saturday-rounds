@@ -11,6 +11,8 @@ import {Golf, Settings2} from 'tabler-icons-react';
 import ScheduleArea from '../schedule/ScheduleArea';
 import {DashboardContext} from '../Dashboard';
 
+/* testing to make sure git works again for ubuntu */
+
 const useStyles = createStyles((theme) => ({
 
   areaButton: {
