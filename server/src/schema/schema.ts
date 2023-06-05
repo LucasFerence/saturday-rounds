@@ -1,7 +1,11 @@
 import {WithoutId, Document} from 'node_modules/mongodb';
-import {Type, TProperties, TObject} from '@sinclair/typebox';
+import {Type, TProperties, TObject, TSchema} from '@sinclair/typebox';
 
 export type DataDocument = WithoutId<Document>;
+
+export interface DataTProperties extends TProperties {
+  _id: TSchema;
+}
 
 /**
  * Builds a safe type to be used generically in the system.
@@ -14,9 +18,11 @@ export type DataDocument = WithoutId<Document>;
  * @param properties any TypeBox properties to create a type
  * @returns {TObject}
  */
-export function SafeType(properties: TProperties): TObject {
-  properties['_id'] = Type.Optional(Type.String());
-  return Type.Object(properties, {additionalProperties: false});
+export function SafeType(properties: TProperties): TObject<DataTProperties> {
+  const dataProperties = properties as DataTProperties;
+  dataProperties._id = Type.Optional(Type.String());
+
+  return Type.Object(dataProperties, {additionalProperties: false});
 }
 
 /**
