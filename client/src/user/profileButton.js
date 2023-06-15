@@ -7,9 +7,10 @@ import {useAuth0} from '@auth0/auth0-react';
  * creates profile button
  * @return {button}
  */
-export function UserButton() {
+const UserButton = () => {
   const theme = core.useMantineTheme();
   const {user} = useAuth0();
+
 
   return (
     <core.Box
@@ -41,15 +42,15 @@ export function UserButton() {
       >
         <core.Group>
           <core.Avatar
-            src={user.picture}
+            src={user?.picture}
             radius="xl"
           />
           <core.Box sx={{flex: 1}}>
             <core.Text size="sm" weight={500}>
-              {user.name}
+              {user?.name}
             </core.Text>
             <core.Text color="dimmed" size="xs">
-              {user.email}
+              {user?.email}
             </core.Text>
           </core.Box>
           {theme.dir === 'ltr' ? (
@@ -61,6 +62,6 @@ export function UserButton() {
       </core.UnstyledButton>
     </core.Box>
   );
-}
+};
 
 export default UserButton;
