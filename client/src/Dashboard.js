@@ -14,6 +14,7 @@ import {
 } from '@mantine/core';
 import usePrevious from './hooks/usePrevious';
 import {AreaLinks} from './area/AreaLinks';
+import UserButton from './user/profileButton.js';
 
 const useStyles = createStyles((theme) => ({
 
@@ -23,7 +24,6 @@ const useStyles = createStyles((theme) => ({
   },
 
   nav: {
-    height: '100vh',
     backgroundColor: theme.colors.brandEarth[0],
   },
 
@@ -77,6 +77,9 @@ function DashboardAppShell() {
         <Navbar className={classes.nav} width={{base: 300}}>
           <Navbar.Section className={classes.areaSection} grow>
             <AreaLinks/>
+          </Navbar.Section>
+          <Navbar.Section>
+            <UserButton/>
           </Navbar.Section>
         </Navbar>
       }
