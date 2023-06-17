@@ -8,17 +8,19 @@ Course: Standardized golf course
 // Create a safe type for Course
 export const CourseType = SafeType({
   externalId: Type.String(),
-  aggregateId: Type.String(),
   providerId: Type.String(),
   name: Type.String(),
   image: Type.Optional(Type.String()),
 });
 
 // Create the Course DataDocument type based on the SafeType
-type Type = Static<typeof CourseType>;
-export interface Course extends Type, DataDocument {}
+export class Course extends DataDocument implements Static<typeof CourseType> {
+  getSchema(): Schema {
+    return new CourseSchema();
+  }
+}
 
 // Create a Schema for the Course type to allow DB association
-export class CourseSchema implements Schema<Course> {
-  collection = 'courses';
+export class CourseSchema implements Schema {
+  _col = 'courses';
 }

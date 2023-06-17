@@ -1,7 +1,17 @@
 import {WithoutId, Document} from 'node_modules/mongodb';
-import {Type, TProperties, TObject, TSchema} from '@sinclair/typebox';
+import {Type, TProperties, TObject, TSchema, TString} from '@sinclair/typebox';
 
-export type DataDocument = WithoutId<Document>;
+export abstract class DataDocument implements WithoutId<Document> {
+  // WithoutId overrides
+  [x: number]: unknown;
+  [x: string]: unknown;
+
+  // Mongo _id of item (optional if new)
+  _id?: string;
+
+  // Get the schema for the document
+  abstract getSchema(): Schema;
+}
 
 export interface DataTProperties extends TProperties {
   _id: TSchema;
@@ -25,10 +35,24 @@ export function SafeType(properties: TProperties): TObject<DataTProperties> {
   return Type.Object(dataProperties, {additionalProperties: false});
 }
 
+export interface DataRefProperties extends TProperties {
+  $id: TString;
+  $ref: TString;
+}
+
+/**
+ * Models a reference to another piece of data.
+ * Built to handle a DBRef as detailed here: https://www.mongodb.com/docs/manual/reference/database-references/#dbrefs
+ */
+/*
+export function DataRef(): TObject<DataRefProperties> {
+
+}
+*/
 /**
  * Interface to denote a DataDocument and it's relation to the database.
  * Requires a collection to denote where this DataDocument is stored
  */
-export interface Schema<T extends DataDocument> {
-  readonly collection: string;
+export interface Schema {
+  _col: string;
 }

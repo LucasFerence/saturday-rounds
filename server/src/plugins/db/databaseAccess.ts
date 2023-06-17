@@ -22,8 +22,8 @@ const PLUGIN_NAME = 'databaseAccess';
 declare module 'fastify' {
   interface FastifyInstance {
     databaseAccess: <T extends DataDocument>(
-      schema: Schema<T>
-    ) => DatabaseAccess<T, Schema<T>>;
+      schema: Schema
+    ) => DatabaseAccess<T, Schema>;
   }
 }
 
@@ -31,7 +31,7 @@ declare module 'fastify' {
 const databaseAccess: FastifyPluginAsync = async (fastify: FastifyInstance) => {
   fastify.decorate(
     PLUGIN_NAME,
-    <T extends DataDocument>(schema: Schema<T>): DatabaseAccess<T, Schema<T>> =>
+    <T extends DataDocument>(schema: Schema): DatabaseAccess<T, Schema> =>
       new DatabaseAccess(schema)
   );
 };
@@ -55,7 +55,7 @@ function getCollection<T extends DataDocument>(
  * T: The relevant DataDocument to access the data with
  * S: The Schema which represents this DataDocument
  */
-class DatabaseAccess<T extends DataDocument, S extends Schema<T>> {
+class DatabaseAccess<T extends DataDocument, S extends Schema> {
   schema: S;
 
   constructor(schema: S) {
@@ -63,14 +63,14 @@ class DatabaseAccess<T extends DataDocument, S extends Schema<T>> {
   }
 
   async get(fastify: FastifyInstance, _id: string): Promise<T> {
-    const collection = getCollection(fastify, this.schema.collection);
+    const collection = getCollection(fastify, this.schema._col);
     const query = {_id: _id};
 
     return (await collection?.findOne(query)) as unknown as T;
   }
 
   async write(fastify: FastifyInstance, item: T, create: boolean) {
-    const collection = getCollection(fastify, this.schema.collection);
+    const collection = getCollection(fastify, this.schema._col);
 
     // Use a UUID to generate a unique item
     const itemId = item._id !== undefined ? item._id : uuid();

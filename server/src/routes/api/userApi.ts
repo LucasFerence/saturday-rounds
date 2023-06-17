@@ -1,9 +1,9 @@
 import {FastifyInstance} from 'fastify';
 import {ApiConfig} from 'src/plugins/api/detailsApi';
-import {User, UserSchema, UserType} from 'src/schema/user';
+import {UserSchema, UserType} from 'src/schema/user';
 
 export default async function userApi(fastify: FastifyInstance) {
-  const apiConfig: ApiConfig<User> = {
+  const apiConfig: ApiConfig = {
     routePrefix: '/user',
     permission: 'user',
     schema: new UserSchema(),

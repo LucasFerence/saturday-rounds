@@ -10,8 +10,15 @@ export const ProviderType = SafeType({
 });
 
 type Type = Static<typeof ProviderType>;
-export interface Provider extends Type, DataDocument {}
+export class Provider
+  extends DataDocument
+  implements Static<typeof ProviderType>
+{
+  getSchema(): Schema {
+    return new ProviderSchema();
+  }
+}
 
-export class ProviderSchema implements Schema<Provider> {
-  collection = 'providers';
+export class ProviderSchema implements Schema {
+  _col = 'providers';
 }

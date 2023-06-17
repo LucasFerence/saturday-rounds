@@ -11,8 +11,12 @@ export const UserType = SafeType({
   providerData: Type.Record(Type.String(), UserProviderDataType),
 });
 
-export interface User extends Static<typeof UserType>, DataDocument {}
+export class User extends DataDocument implements Static<typeof UserType> {
+  getSchema(): Schema {
+    return new UserSchema();
+  }
+}
 
-export class UserSchema implements Schema<User> {
-  collection = 'users';
+export class UserSchema implements Schema {
+  _col = 'users';
 }

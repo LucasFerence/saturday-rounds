@@ -1,9 +1,9 @@
 import {FastifyInstance} from 'fastify';
 import {ApiConfig} from 'src/plugins/api/detailsApi';
-import {Provider, ProviderSchema, ProviderType} from 'src/schema/provider';
+import {ProviderSchema, ProviderType} from 'src/schema/provider';
 
 export default async function providerApi(fastify: FastifyInstance) {
-  const apiConfig: ApiConfig<Provider> = {
+  const apiConfig: ApiConfig = {
     routePrefix: '/provider',
     permission: 'provider',
     schema: new ProviderSchema(),

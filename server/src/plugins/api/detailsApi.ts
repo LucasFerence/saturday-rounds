@@ -8,32 +8,27 @@ const PLUGIN_NAME = 'detailsApi';
 
 declare module 'fastify' {
   interface FastifyInstance {
-    registerDetailsApi: <T extends DataDocument>(
-      apiConfig: ApiConfig<T>
-    ) => void;
+    registerDetailsApi: <T extends DataDocument>(apiConfig: ApiConfig) => void;
   }
 }
 
 const registerDetailsApi: FastifyPluginAsync = async (
   fastify: FastifyInstance
 ) => {
-  fastify.decorate(
-    'registerDetailsApi',
-    <T extends DataDocument>(apiConfig: ApiConfig<T>) => {
-      // Create a new details API object and register the supported endpoints
-      const detailsApi = new DetailsApi(fastify, apiConfig);
+  fastify.decorate('registerDetailsApi', (apiConfig: ApiConfig) => {
+    // Create a new details API object and register the supported endpoints
+    const detailsApi = new DetailsApi(fastify, apiConfig);
 
-      if (apiConfig.supportsGet) detailsApi.supportGetById();
-      if (apiConfig.supportsCreate) detailsApi.supportCreate();
-      if (apiConfig.supportsUpdate) detailsApi.supportUpdate();
-    }
-  );
+    if (apiConfig.supportsGet) detailsApi.supportGetById();
+    if (apiConfig.supportsCreate) detailsApi.supportCreate();
+    if (apiConfig.supportsUpdate) detailsApi.supportUpdate();
+  });
 };
 
-export interface ApiConfig<T extends DataDocument> {
+export interface ApiConfig {
   routePrefix: string;
   permission: string;
-  schema: Schema<T>;
+  schema: Schema;
   type: TObject<DataTProperties>;
   supportsGet: boolean;
   supportsCreate: boolean;
@@ -42,9 +37,9 @@ export interface ApiConfig<T extends DataDocument> {
 
 class DetailsApi<T extends DataDocument> {
   fastify: FastifyInstance;
-  config: ApiConfig<T>;
+  config: ApiConfig;
 
-  constructor(fastify: FastifyInstance, config: ApiConfig<T>) {
+  constructor(fastify: FastifyInstance, config: ApiConfig) {
     this.fastify = fastify;
     this.config = config;
   }

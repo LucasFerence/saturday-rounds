@@ -13,8 +13,15 @@ export const AggregateType = SafeType({
   name: Type.String(),
 });
 
-export interface Aggregate extends Static<typeof AggregateType>, DataDocument {}
+export class Aggregate
+  extends DataDocument
+  implements Static<typeof AggregateType>
+{
+  getSchema(): Schema {
+    return new AggregateSchema();
+  }
+}
 
-export class AggregateSchema implements Schema<Aggregate> {
-  collection = 'aggregates';
+export class AggregateSchema implements Schema {
+  _col = 'aggregates';
 }
