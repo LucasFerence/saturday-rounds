@@ -58,11 +58,11 @@ function AreaLink(props) {
       })}
     >
       <Group>
-        <ThemeIcon color={props.color} variant="light">
+        <ThemeIcon color={props.color} variant="light" size='29px'>
           {props.icon}
         </ThemeIcon>
 
-        <Text size='xl'>
+        <Text size='23px'>
           {props.label}
         </Text>
       </Group>

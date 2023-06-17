@@ -74,7 +74,7 @@ function DashboardAppShell() {
       className={classes.shell}
       fixed={false}
       navbar={
-        <Navbar className={classes.nav} width={{base: 300}}>
+        <Navbar className={classes.nav} width={{base: 340}}>
           <Navbar.Section className={classes.areaSection} grow>
             <AreaLinks/>
           </Navbar.Section>
