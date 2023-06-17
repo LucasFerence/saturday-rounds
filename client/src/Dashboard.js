@@ -11,6 +11,7 @@ import {
   Header,
   Group,
   createStyles,
+  Title,
 } from '@mantine/core';
 import usePrevious from './hooks/usePrevious';
 import {AreaLinks} from './area/AreaLinks';
@@ -28,6 +29,9 @@ const useStyles = createStyles((theme) => ({
   },
 
   headerContent: {
+    fontfamily: 'Libre Franklin',
+    paddingLeft: '15px',
+    color: 'white',
     height: '100%',
     px: 20,
     backgroundColor: theme.colors.brandGrey[7],
@@ -84,8 +88,9 @@ function DashboardAppShell() {
         </Navbar>
       }
       header={
-        <Header height={70}>
+        <Header height={75}>
           <Group className={classes.headerContent} position="apart">
+            <Title size="h1">Saturday Rounds</Title>
           </Group>
         </Header>
       }
