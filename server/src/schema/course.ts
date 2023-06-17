@@ -8,7 +8,7 @@ Course: Standardized golf course
 // Create a safe type for Course
 export const CourseType = SafeType({
   externalId: Type.String(),
-  sourceId: Type.String(),
+  aggregateId: Type.String(),
   providerId: Type.String(),
   name: Type.String(),
   image: Type.Optional(Type.String()),
