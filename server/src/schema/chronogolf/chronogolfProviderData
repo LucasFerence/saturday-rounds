@@ -1,0 +1,6 @@
+import {UserProviderData} from '../user';
+
+export class ChronogolfProviderData implements UserProviderData {
+  username: string;
+  password: string;
+}
