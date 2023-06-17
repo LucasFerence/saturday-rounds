@@ -10,7 +10,8 @@ import {
 import {Golf, Settings2} from 'tabler-icons-react';
 import ScheduleArea from '../schedule/ScheduleArea';
 import {DashboardContext} from '../Dashboard';
-import UserProfile from '../user/UserProfile';
+import ManagementArea from '../Managment/ManageArea';
+
 
 const useStyles = createStyles((theme) => ({
 
@@ -79,7 +80,7 @@ const data = [
   {
     icon: <Settings2 size="3rem"/>, color: 'red', label: 'Management',
     render: () => {
-      return <UserProfile />;
+      return <ManagementArea />;
     },
   },
 ];
