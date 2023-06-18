@@ -1,5 +1,6 @@
 import {WithoutId, Document} from 'node_modules/mongodb';
 import {Type, TProperties, TObject, TSchema} from '@sinclair/typebox';
+import { _ } from 'ajv';
 
 export abstract class DataDocument implements WithoutId<Document> {
   // WithoutId overrides
@@ -61,4 +62,15 @@ export function DataRef<T extends DataDocument>(
  */
 export interface Schema {
   _col: string;
+}
+
+/**
+ * Tool to create a reference schema from the value provided from $ref
+ */
+export class RefSchema implements Schema {
+  _col: string;
+
+  constructor(_col: string) {
+    this._col = _col;
+  }
 }
