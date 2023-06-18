@@ -1,11 +1,11 @@
 import {Static, Type} from '@sinclair/typebox';
-import {Schema, DataDocument, SafeType} from './schema';
+import {Schema, DataDocument, DataObj} from './schema';
 
 /*
 Provider: Technical provider for golf content. Potential examples: ChronoGolf, GolfNow
 */
 
-export const ProviderType = SafeType({
+export const ProviderType = DataObj({
   name: Type.String(),
 });
 

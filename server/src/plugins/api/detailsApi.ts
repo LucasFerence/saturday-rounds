@@ -8,7 +8,7 @@ const PLUGIN_NAME = 'detailsApi';
 
 declare module 'fastify' {
   interface FastifyInstance {
-    registerDetailsApi: <T extends DataDocument>(apiConfig: ApiConfig) => void;
+    registerDetailsApi: (apiConfig: ApiConfig) => void;
   }
 }
 

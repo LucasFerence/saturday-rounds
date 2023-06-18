@@ -1,5 +1,5 @@
 import {WithoutId, Document} from 'node_modules/mongodb';
-import {Type, TProperties, TObject, TSchema, TUnion} from '@sinclair/typebox';
+import {Type, TProperties, TObject, TSchema} from '@sinclair/typebox';
 
 export abstract class DataDocument implements WithoutId<Document> {
   // WithoutId overrides
@@ -28,7 +28,7 @@ export interface DataTProperties extends TProperties {
  * @param properties any TypeBox properties to create a type
  * @returns {TObject}
  */
-export function SafeType(properties: TProperties): TObject<DataTProperties> {
+export function DataObj(properties: TProperties): TObject<DataTProperties> {
   const dataProperties = properties as DataTProperties;
   dataProperties._id = Type.Optional(Type.String());
 
@@ -47,7 +47,6 @@ export interface DataRefProperties extends TProperties {
 export function DataRef<T extends DataDocument>(
   dataDoc: T
 ): TObject<DataRefProperties> {
-  // TODO: Ensure the ref is the right value (it needs to be enforced by the passed in type)
   const refProperties = {
     $id: Type.String(),
     $ref: Type.Literal(dataDoc.getSchema()._col),

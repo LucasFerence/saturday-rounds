@@ -1,5 +1,5 @@
 import {Static, Type} from '@sinclair/typebox';
-import {Schema, DataDocument, SafeType, DataRef} from './schema';
+import {Schema, DataDocument, DataObj, DataRef} from './schema';
 import {Provider} from './provider';
 
 /*
@@ -8,7 +8,7 @@ Many courses can be associated with a single aggregate.
 This is a more generic term of the ChronoGolf club.
 */
 
-export const AggregateType = SafeType({
+export const AggregateType = DataObj({
   externalId: Type.String(),
   provider: DataRef(new Provider()),
   name: Type.String(),

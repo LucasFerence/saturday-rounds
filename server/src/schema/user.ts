@@ -1,11 +1,11 @@
 import {Static, Type} from '@sinclair/typebox';
-import {DataDocument, SafeType, Schema} from './schema';
+import {DataDocument, DataObj, Schema} from './schema';
 
 export const UserProviderDataType = Type.Object({});
 
 export type UserProviderData = Static<typeof UserProviderDataType>;
 
-export const UserType = SafeType({
+export const UserType = DataObj({
   email: Type.String(),
   name: Type.Optional(Type.String()),
   providerData: Type.Record(Type.String(), UserProviderDataType),
