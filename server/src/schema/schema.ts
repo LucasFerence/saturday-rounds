@@ -1,7 +1,6 @@
 import {WithoutId, Document} from 'node_modules/mongodb';
 import {Type, TProperties, TObject, TSchema} from '@sinclair/typebox';
-import { _ } from 'ajv';
-
+g
 export abstract class DataDocument implements WithoutId<Document> {
   // WithoutId overrides
   [x: number]: unknown;
