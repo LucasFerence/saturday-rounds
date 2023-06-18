@@ -1,6 +1,6 @@
 import {UserProviderData} from '../user';
 
-export class ChronogolfProviderData implements UserProviderData {
+export interface ChronogolfProviderData extends UserProviderData {
   username: string;
   password: string;
 }
