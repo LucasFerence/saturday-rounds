@@ -1,5 +1,7 @@
 import {Static, Type} from '@sinclair/typebox';
-import {Schema, DataDocument, SafeType} from './schema';
+import {Schema, DataDocument, SafeType, DataRef} from './schema';
+import {Provider} from './provider';
+import {Aggregate} from './aggregate';
 
 /*
 Course: Standardized golf course
@@ -8,7 +10,8 @@ Course: Standardized golf course
 // Create a safe type for Course
 export const CourseType = SafeType({
   externalId: Type.String(),
-  providerId: Type.String(),
+  provider: DataRef(new Provider()),
+  aggregate: DataRef(new Aggregate()),
   name: Type.String(),
   image: Type.Optional(Type.String()),
 });

@@ -1,5 +1,6 @@
 import {Static, Type} from '@sinclair/typebox';
-import {Schema, DataDocument, SafeType} from './schema';
+import {Schema, DataDocument, SafeType, DataRef} from './schema';
+import {Provider} from './provider';
 
 /*
 Aggregate: Aggreagate of some golf content. This will be associated with a provider.
@@ -9,7 +10,7 @@ This is a more generic term of the ChronoGolf club.
 
 export const AggregateType = SafeType({
   externalId: Type.String(),
-  providerId: Type.String(),
+  provider: DataRef(new Provider()),
   name: Type.String(),
 });
 
