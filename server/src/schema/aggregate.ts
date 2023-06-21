@@ -1,6 +1,6 @@
 import {Static, Type} from '@sinclair/typebox';
 import {Schema, DataDocument, DataObj, DataRef} from './schema';
-import {Provider} from './provider';
+import {ProviderSchema} from './provider';
 
 /*
 Aggregate: Aggreagate of some golf content. This will be associated with a provider.
@@ -10,18 +10,12 @@ This is a more generic term of the ChronoGolf club.
 
 export const AggregateType = DataObj({
   externalId: Type.String(),
-  provider: DataRef(new Provider()),
+  provider: DataRef(new ProviderSchema()),
   name: Type.String(),
+  minuteScheduleOffset: Type.Integer(),
 });
 
-export class Aggregate
-  extends DataDocument
-  implements Static<typeof AggregateType>
-{
-  getSchema(): Schema {
-    return new AggregateSchema();
-  }
-}
+export interface Aggregate extends DataDocument, Static<typeof AggregateType> {}
 
 export class AggregateSchema implements Schema {
   _col = 'aggregates';

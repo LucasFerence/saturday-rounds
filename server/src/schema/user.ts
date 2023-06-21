@@ -11,11 +11,7 @@ export const UserType = DataObj({
   providerData: Type.Record(Type.String(), UserProviderDataType),
 });
 
-export class User extends DataDocument implements Static<typeof UserType> {
-  getSchema(): Schema {
-    return new UserSchema();
-  }
-}
+export interface User extends DataDocument, Static<typeof UserType> {}
 
 export class UserSchema implements Schema {
   _col = 'users';

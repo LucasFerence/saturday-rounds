@@ -1,7 +1,7 @@
 import {Job, JobAttributesData} from 'agenda';
 import {FastifyInstance, FastifyPluginAsync} from 'fastify';
 import fp from 'fastify-plugin';
-import {ScheduleDetails} from 'src/schema/chronogolf/schedule';
+import {ScheduleDetails} from 'src/schema/schedule/scheduleDetails';
 import {JobDefinition} from '../agenda';
 
 // Needs to be unique
