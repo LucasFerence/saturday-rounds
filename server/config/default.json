@@ -2,7 +2,7 @@
     "root": {
 
         "db": {
-            "host": "mongo",
+            "host": "localhost",
             "port": 27017,
             "db": "saturday-rounds",
             "username": "root",

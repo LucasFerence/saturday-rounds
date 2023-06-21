@@ -1,9 +1,10 @@
 import {FastifyInstance, FastifyPluginAsync} from 'fastify';
 import fp from 'fastify-plugin';
-import {ScheduleDetails} from 'src/schema/chronogolf/schedule';
+import {ScheduleDetails} from 'src/schema/schedule/scheduleDetails';
 import webdriver from 'selenium-webdriver';
 import chrome from 'selenium-webdriver/chrome.js';
 import {DateTime} from 'luxon';
+import {User, UserSchema} from 'src/schema/user';
 
 // Example: 2022-07-08
 const URL_DATE_FORMAT = 'yyyy-LL-dd';
@@ -48,14 +49,14 @@ async function bookTime(fastify: FastifyInstance, details: ScheduleDetails) {
 
   try {
     // Begin by parsing the tee time date
-    const dateOfTeeTime = DateTime.fromISO(details.date);
+    const dateOfTeeTime = DateTime.fromISO(details.teeTimeDate);
 
     // Format the date for the URL
     const urlFormattedDate = dateOfTeeTime.toFormat(URL_DATE_FORMAT);
 
     // Define the base URL with detail data
     let url =
-      `https://www.chronogolf.com/club/${details.clubId}` +
+      `https://www.chronogolf.com/club/${details.aggregateId}` +
       `/widget?medium=widget&source=club#?date=${urlFormattedDate}` +
       `&course_id=${details.courseId}&nb_holes=18&affiliation_type_ids=`;
 
@@ -141,7 +142,9 @@ async function bookTime(fastify: FastifyInstance, details: ScheduleDetails) {
       .click();
 
     // Get the user from storage
-    const user = await fastify.getChronogolfUser(details.userId);
+    const user: User = await fastify
+      .databaseAccess(new UserSchema())
+      .get(fastify, details.userId);
 
     // Insert the stored username and password into the fields
     await driver.findElement({id: 'sessionEmail'}).sendKeys(user.username);
@@ -156,7 +159,8 @@ async function bookTime(fastify: FastifyInstance, details: ScheduleDetails) {
       .findElement({xpath: "//input[@type='checkbox']"})
       .click();
 
-    if (details.checkout) {
+    // If this is not debugMode, actually execute the check out
+    if (!details.debugMode) {
       console.log('Checking out...');
 
       // Submit the reservation
@@ -168,6 +172,7 @@ async function bookTime(fastify: FastifyInstance, details: ScheduleDetails) {
       // Wait for the success element to appear so we know if we have succeeded
       await driver.findElement({className: 'alert-success'});
     } else {
+      // If this is debug mode, do not execute the checkout
       console.log('Skipping checkout...');
     }
   } catch (err) {

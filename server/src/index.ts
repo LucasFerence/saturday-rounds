@@ -33,5 +33,13 @@ server.listen({port: 5050, host: '0.0.0.0'}, (err, address) => {
   console.log(`Server listening at ${address}`);
 });
 
-process.on('SIGTERM', () => server.close());
-process.on('SIGINT', () => server.close());
+// Handle shutdown
+process.on('SIGTERM', () => {
+  server.close();
+  throw new Error('Server closed');
+});
+
+process.on('SIGINT', () => {
+  server.close();
+  throw new Error('Server closed');
+});
