@@ -1,6 +1,8 @@
+/* eslint-disable valid-jsdoc */
 import {React, useContext} from 'react';
 import {ArrowBigRightLine} from 'tabler-icons-react';
-import * as core from '@mantine/core';
+import {Box, UnstyledButton, Group, Avatar, Text,
+  useMantineTheme, rem} from '@mantine/core';
 import {useAuth0} from '@auth0/auth0-react';
 import UserProfile from './UserProfile';
 import {DashboardContext} from '../Dashboard';
@@ -20,43 +22,42 @@ function capitalizeFirstLetter(variable) {
 
   return variable.charAt(0).toUpperCase() + variable.slice(1);
 }
+/** \
+ * @param {*} key;
+ * @return {boolean}
+ */
 
 /**
  * creates unstyled profile button
  * @return {button}
  */
 const UserButton = () => {
-  const theme = core.useMantineTheme();
-  const {user} = useAuth0();
-  const name = capitalizeFirstLetter(user?.nickname);
+  const selected = false;
   const {setRenderedArea} = useContext(DashboardContext);
-  const render = () => {
+  const rendered = () => {
     return <UserProfile />;
   };
+  const theme = useMantineTheme();
+  const {user} = useAuth0();
+  const name = capitalizeFirstLetter(user?.nickname);
   return (
-    <core.Box
-      onClick={() => {
-        setRenderedArea(render);
-      }}
-      sx={{
-        height: 'fit-content',
-        padding: '10px, 0px',
-        borderTop: `${core.rem(1)} solid ${
-          theme.colorScheme === 'dark' ?
-            theme.colors.brandGreen[4] :
-            theme.colors.brandGrey[2]
-        }`,
-      }}
+    <Box
+      onClick={() => setRenderedArea(rendered)}
+      sx={({
+        backgroundColor: selected != false ?
+        theme.colors.brandGreenOne[7] :
+        theme.colors.brandEarth[0],
+        color: selected ?
+        theme.colors.brandEarth[0] :
+        theme.black,
+      })}
     >
-      <core.UnstyledButton
+      <UnstyledButton
         sx={{
           'display': 'block',
           'width': '100%',
           'padding': theme.spacing.xs,
           'borderRadius': theme.sm,
-          'color':
-            theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.black,
-
           '&:hover': {
             color: theme.white,
             backgroundColor:
@@ -66,28 +67,28 @@ const UserButton = () => {
           },
         }}
       >
-        <core.Group>
-          <core.Avatar
+        <Group>
+          <Avatar
             src={user?.picture}
             radius="xl"
-            size={'50px'}
+            size={'lg'}
           />
-          <core.Box sx={{flex: 1}}>
-            <core.Text size="17px" weight={550}>
+          <Box sx={{flex: 1}}>
+            <Text size="xlg" weight={570}>
               {name}
-            </core.Text>
-            <core.Text color='theme.grey' size="s" weight={100}>
+            </Text>
+            <Text color='theme.grey' size="s" weight={50}>
               {user?.email}
-            </core.Text>
-          </core.Box>
+            </Text>
+          </Box>
           {theme.dir === 'ltr' ? (
-            <ArrowBigRightLine size={core.rem(22)} />
+            <ArrowBigRightLine size={rem(25)} />
           ) : (
-            <ArrowBigRightLine size={core.rem(22)} />
+            <ArrowBigRightLine size={rem(25)} />
           )}
-        </core.Group>
-      </core.UnstyledButton>
-    </core.Box>
+        </Group>
+      </UnstyledButton>
+    </Box>
   );
 };
 

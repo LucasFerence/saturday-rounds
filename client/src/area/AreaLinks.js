@@ -62,7 +62,7 @@ function AreaLink(props) {
           {props.icon}
         </ThemeIcon>
 
-        <Text size='23px'>
+        <Text size='xxl'>
           {props.label}
         </Text>
       </Group>

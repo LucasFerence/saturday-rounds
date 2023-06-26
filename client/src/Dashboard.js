@@ -12,10 +12,12 @@ import {
   Group,
   createStyles,
   Title,
+  Avatar,
 } from '@mantine/core';
 import usePrevious from './hooks/usePrevious';
 import {AreaLinks} from './area/AreaLinks';
 import UserButton from './user/profileButton.js';
+import {Golf} from 'tabler-icons-react';
 
 const useStyles = createStyles((theme) => ({
 
@@ -30,10 +32,10 @@ const useStyles = createStyles((theme) => ({
 
   headerContent: {
     fontfamily: 'Libre Franklin',
-    paddingLeft: '15px',
+    paddingLeft: '20px',
+    gap: '1.7rem',
     color: 'white',
     height: '100%',
-    px: 20,
     backgroundColor: theme.colors.brandGrey[7],
     borderBottom: 0,
   },
@@ -89,8 +91,13 @@ function DashboardAppShell() {
       }
       header={
         <Header height={75}>
-          <Group className={classes.headerContent} position="apart">
-            <Title size="h1">Saturday Rounds</Title>
+          <Group className={classes.headerContent} position='left'>
+            <Avatar color='white' variant="light" radius="10px">
+              <Golf size={'100px'}/>
+            </Avatar>
+            <Title size="h1">
+              Saturday Rounds
+            </Title>
           </Group>
         </Header>
       }
