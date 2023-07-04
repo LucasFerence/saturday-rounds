@@ -97,11 +97,9 @@ AreaLinks.propTypes = {
 export function AreaLinks(props) {
   const [selectedKey, setSelectedKey] = useState([]);
   const {setRenderedArea} = useContext(DashboardContext);
-
   const links = data.map((link) => {
     // Define the key for the link
     const linkKey = link.label;
-
     return <AreaLink
       {...link}
       key={linkKey}

@@ -1,5 +1,5 @@
 /* eslint-disable valid-jsdoc */
-import {React, useContext} from 'react';
+import {React, useContext, useEffect, useState} from 'react';
 import {ArrowBigRightLine} from 'tabler-icons-react';
 import {Box, UnstyledButton, Group, Avatar, Text,
   useMantineTheme, rem} from '@mantine/core';
@@ -22,6 +22,7 @@ function capitalizeFirstLetter(variable) {
 
   return variable.charAt(0).toUpperCase() + variable.slice(1);
 }
+
 /** \
  * @param {*} key;
  * @return {boolean}
@@ -32,8 +33,16 @@ function capitalizeFirstLetter(variable) {
  * @return {button}
  */
 const UserButton = () => {
-  const selected = false;
-  const {setRenderedArea} = useContext(DashboardContext);
+  const {setRenderedArea, renderedArea} = useContext(DashboardContext);
+  const [selected, setSelected] = useState(false);
+  useEffect(() => {
+    console.log(renderedArea);
+    if (renderedArea.type?.name === 'UserProfile') {
+      setSelected(true);
+    } else {
+      setSelected(false);
+    }
+  }, [renderedArea]);
   const rendered = () => {
     return <UserProfile />;
   };
@@ -42,14 +51,15 @@ const UserButton = () => {
   const name = capitalizeFirstLetter(user?.nickname);
   return (
     <Box
+      className='userButton'
       onClick={() => setRenderedArea(rendered)}
-      sx={({
+      sx={(theme) => ({
         backgroundColor: selected != false ?
-        theme.colors.brandGreenOne[7] :
-        theme.colors.brandEarth[0],
-        color: selected ?
-        theme.colors.brandEarth[0] :
-        theme.black,
+          theme.colors.brandGreenOne[7] :
+          theme.colors.brandEarth[0],
+        color: selected != false ?
+          theme.colors.brandEarth[0] :
+          theme.black,
       })}
     >
       <UnstyledButton
