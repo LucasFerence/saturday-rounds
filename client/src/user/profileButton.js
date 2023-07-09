@@ -36,7 +36,6 @@ const UserButton = () => {
   const {setRenderedArea, renderedArea} = useContext(DashboardContext);
   const [selected, setSelected] = useState(false);
   useEffect(() => {
-    console.log(renderedArea);
     if (renderedArea.type?.name === 'UserProfile') {
       setSelected(true);
     } else {
@@ -54,12 +53,9 @@ const UserButton = () => {
       className='userButton'
       onClick={() => setRenderedArea(rendered)}
       sx={(theme) => ({
-        backgroundColor: selected != false ?
+        'backgroundColor': selected != false ?
           theme.colors.brandGreenOne[7] :
           theme.colors.brandEarth[0],
-        color: selected != false ?
-          theme.colors.brandEarth[0] :
-          theme.black,
       })}
     >
       <UnstyledButton
@@ -68,6 +64,9 @@ const UserButton = () => {
           'width': '100%',
           'padding': theme.spacing.xs,
           'borderRadius': theme.sm,
+          'color': selected != false ?
+          theme.colors.brandEarth[0] :
+          theme.black,
           '&:hover': {
             color: theme.white,
             backgroundColor:

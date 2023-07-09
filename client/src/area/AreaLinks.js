@@ -1,4 +1,4 @@
-import {React, useState, useContext} from 'react';
+import {React, useState, useContext, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {
   ThemeIcon,
@@ -34,6 +34,7 @@ AreaLink.propTypes = {
   selected: PropTypes.bool,
   render: PropTypes.func,
   renderCallback: PropTypes.func,
+  profSelect: PropTypes.bool,
 };
 
 /**
@@ -43,16 +44,15 @@ AreaLink.propTypes = {
  */
 function AreaLink(props) {
   const {classes} = useStyles();
-
   return (
     <UnstyledButton
       onClick={() => props.renderCallback(props.render)}
       className={classes.areaButton}
       sx={(theme) => ({
-        backgroundColor: props.selected != false ?
+        backgroundColor: props.selected != false && props.profSelect != false ?
           theme.colors.brandGreenOne[7] :
           theme.colors.brandEarth[0],
-        color: props.selected ?
+        color: props.selected != false && props.profSelect != false ?
           theme.colors.brandEarth[0] :
           theme.black,
       })}
@@ -89,19 +89,30 @@ AreaLinks.propTypes = {
   renderCallback: PropTypes.func,
 };
 
+
 /**
  * Export and return all of the links with the data
  * @param {*} props
  * @return {div}
  */
 export function AreaLinks(props) {
+  const {renderedArea} = useContext(DashboardContext);
   const [selectedKey, setSelectedKey] = useState([]);
   const {setRenderedArea} = useContext(DashboardContext);
+  const [profSelect, setProfSelect] = useState(false);
   const links = data.map((link) => {
     // Define the key for the link
+    useEffect(() => {
+      if (renderedArea.type?.name === 'UserProfile') {
+        setProfSelect(false);
+      } else {
+        setProfSelect(true);
+      }
+    }, [renderedArea]);
     const linkKey = link.label;
     return <AreaLink
       {...link}
+      profSelect={profSelect}
       key={linkKey}
       selected={selectedKey === linkKey}
       renderCallback={(render) => {
