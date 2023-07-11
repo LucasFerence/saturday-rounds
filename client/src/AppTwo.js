@@ -39,7 +39,9 @@ class App extends React.Component {
             sm: '0.75rem',
             md: '0.9rem',
             lg: '1rem',
+            xlg: '1.15rem',
             xl: '1.2rem',
+            xxl: '1.4rem',
           },
           other: {
             fontCursive: 'Courgette',
