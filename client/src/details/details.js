@@ -1,67 +1,97 @@
+import axios from 'axios';
+
 /**
- * TODO: Should we consider transitioning this to TypeScript
- * for better type safety?
- *
+ * Predicate to query for data.
+ * Required to interact with the Details API
+ */
+export class Predicate {
+  /**
+   * Construct a simple predicate with a type and ID
+   * @param {string} type type of object (defined in schemas)
+   * @param {string} id id of object
+   */
+  constructor(type, id) {
+    this.type = type;
+    this.id = id;
+  }
+}
+
+/**
+ * Create a new auth configuration with the current token
+ * @param {string} token
+ * @return {*}
+*/
+function createAuth(token) {
+  return {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+};
+
+/**
+ * Validates the provided predicate
+ * @param {Predicate} predicate
+ * @return {boolean}
+ */
+function validatePredicate(predicate) {
+  return (predicate && predicate.id && predicate.type);
+}
+
+/**
  * Access the detail API and manage data from the backend
  */
 export class Details {
+  /**
+   * Construct a new Details API instance with a token
+   * @param {string} token
+   */
+  constructor(token) {
+    this.auth = createAuth(token);
+  }
 
-  /*
-
-  Couple ideas:
-  > Since most operations are going to be read, we need a way to get an item
-  and give full control of the item to the caller. This item cannot be written
-
-  This can be written something like...
-
-  ---
-  const course = getItem(predicate) or something
-  ---
-
-  Or to get many items
-
-  const [courses] = getItems(predicate)
-
-  > In the case of write operations, we need a way to keep access of the item
-
-  This can look something like...
-
-  ---
-  withItem(predicate, (course, writeFunc) => {
-    ... do something with the course
-    ... if you wanna write do something like this
-    writeFunc.accept(course);
-  })
-  ---
-
-  Can also have something like to update multiple items
-
-  ---
-  withItems(predicate, ([courses], writeFunc) => {
-    .. Update one or many courses
-    for (course in courses) {
-      if (we want to update it) {
-        writeFunc.accept(course);
-      } else {
-        we can ignore it and not write it here
-      }
+  /**
+   * Retrieve an item for use with a predicate
+   * @param {Predicate} predicate
+   * @param {*} callback
+   */
+  withItem(predicate, callback) {
+    if (!validatePredicate(predicate)) {
+      return;
     }
-  })
-  ---
 
-  */
-}
+    axios.get(`${predicate.type}/${predicate.id}`, this.auth)
+        .catch((err) => {
+          // TODO: Do something with the error
+        })
+        .then((res) => {
+          // TODO: Add response validation/failure handling
+          callback(res.data);
+        });
+  }
 
-/**
- * Predicate to query for data
- */
-export class Predicate {
-  // Add predicate options
-}
+  /**
+   * Update an item matching the predicate
+   * @param {Predicate} predicate
+   * @param {*} updateFunc
+   */
+  updateItem(predicate, updateFunc) {
+    if (!validatePredicate(predicate)) {
+      return;
+    }
 
-/**
- * Tool to build predicates easily
- */
-export class PredicateBuilder {
-  // Add builders options
+    this.withItem(predicate, (item) => {
+      // First call the update function with the item
+      updateFunc(item);
+
+      // Update the item in the backend
+      axios.post(`${predicate.type}/update`, item, this.auth)
+          .catch((err) => {
+            // TODO: Do something with the error
+          })
+          .then((res) => {
+            // What should we do with the response?
+          });
+    });
+  }
 }
