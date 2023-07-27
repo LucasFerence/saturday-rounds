@@ -47,6 +47,9 @@ export class Details {
    * @param {string} token
    */
   constructor(token) {
+    if (!token) {
+      console.warn('Warning: No token found.');
+    }
     this.auth = createAuth(token);
   }
 

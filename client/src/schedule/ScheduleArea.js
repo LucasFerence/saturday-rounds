@@ -1,6 +1,8 @@
-import {React} from 'react';
+import {React, useState, useEffect} from 'react';
 import {Grid} from '@mantine/core';
+import {useAuth0} from '@auth0/auth0-react';
 import CourseCard from './CouseCard';
+import {Details, Predicate} from '../details/details';
 
 /**
  * Render the schedule area
@@ -8,6 +10,29 @@ import CourseCard from './CouseCard';
  * @return {div}
  */
 function ScheduleArea(props) {
+  // Hooks
+  const [course, setCourse] = useState();
+  const {getAccessTokenSilently} = useAuth0();
+
+  console.log(course);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const token = await getAccessTokenSilently();
+
+      const api = new Details(token);
+      const predicate = new Predicate(
+          'course', 'a6c6fa15-1b5d-4392-957d-f9f5587041a7',
+      );
+
+      api.withItem(predicate, (item) => {
+        setCourse(item);
+      });
+    };
+
+    fetchData();
+  }, [getAccessTokenSilently]);
+
   // TODO: Get all the supported courses and render them
   return (
     <Grid>

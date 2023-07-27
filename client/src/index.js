@@ -12,29 +12,26 @@ root.render(
 
       <BrowserRouter>
 
-        <Routes>
-          <Route path="/" element={
-            <Auth0Provider
-              domain="dev-fkh-ll2p.us.auth0.com"
-              clientId="aDmrCoY20lxhQOi7GDkq5pRLrfJU2mf9"
-              redirectUri={window.location.origin}
-              audience="http://localhost:5050"
-            >
+        <Auth0Provider
+          domain="dev-fkh-ll2p.us.auth0.com"
+          clientId="aDmrCoY20lxhQOi7GDkq5pRLrfJU2mf9"
+          authorizationParams={{
+            redirect_uri: window.location.origin,
+            audience: 'http://localhost:5050',
+          }}
+        >
 
+          <Routes>
+            <Route path="/" element={
               <App />
-            </Auth0Provider>
-          } />
+            }/>
 
-          <Route path="/v2" element={
-            <Auth0Provider
-              domain="dev-fkh-ll2p.us.auth0.com"
-              clientId="aDmrCoY20lxhQOi7GDkq5pRLrfJU2mf9"
-              redirectUri={window.location.origin}
-              audience="http://localhost:5050"
-            >
+            <Route path="/v2" element={
               <AppTwo />
-            </Auth0Provider>}/>
-        </Routes>
+            }/>
+          </Routes>
+
+        </Auth0Provider>
 
       </BrowserRouter>
 
