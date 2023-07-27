@@ -11,9 +11,13 @@ import {
   Header,
   Group,
   createStyles,
+  Title,
+  Avatar,
 } from '@mantine/core';
 import usePrevious from './hooks/usePrevious';
 import {AreaLinks} from './area/AreaLinks';
+import UserButton from './user/profileButton.js';
+import {Golf} from 'tabler-icons-react';
 
 const useStyles = createStyles((theme) => ({
 
@@ -23,13 +27,15 @@ const useStyles = createStyles((theme) => ({
   },
 
   nav: {
-    height: '100vh',
     backgroundColor: theme.colors.brandEarth[0],
   },
 
   headerContent: {
+    fontfamily: 'Libre Franklin',
+    paddingLeft: '20px',
+    gap: '1.7rem',
+    color: 'white',
     height: '100%',
-    px: 20,
     backgroundColor: theme.colors.brandGrey[7],
     borderBottom: 0,
   },
@@ -74,15 +80,24 @@ function DashboardAppShell() {
       className={classes.shell}
       fixed={false}
       navbar={
-        <Navbar className={classes.nav} width={{base: 300}}>
+        <Navbar className={classes.nav} width={{base: 340}}>
           <Navbar.Section className={classes.areaSection} grow>
             <AreaLinks/>
+          </Navbar.Section>
+          <Navbar.Section>
+            <UserButton/>
           </Navbar.Section>
         </Navbar>
       }
       header={
-        <Header height={70}>
-          <Group className={classes.headerContent} position="apart">
+        <Header height={75}>
+          <Group className={classes.headerContent} position='left'>
+            <Avatar color='white' variant="light" radius="10px">
+              <Golf size={'100px'}/>
+            </Avatar>
+            <Title size="h1">
+              Saturday Rounds
+            </Title>
           </Group>
         </Header>
       }
